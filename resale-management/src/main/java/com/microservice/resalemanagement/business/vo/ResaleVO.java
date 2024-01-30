@@ -12,8 +12,11 @@ import org.hibernate.validator.constraints.br.CNPJ;
 public class ResaleVO {
 
     @JsonProperty("legalEntityCode")
-    @CNPJ(message = "Expected format: " + ResaleManagementConstants.LEGAL_ENTITY_CODE_EXPECTED_FORMAT)
     @NotNull(message = ResaleManagementConstants.NOT_NULLABLE_FIELD)
+    @CNPJ(
+            message = "Expected format: " + ResaleManagementConstants.LEGAL_ENTITY_CODE_EXPECTED_FORMAT +
+                    ". Format example: " + ResaleManagementConstants.LEGAL_ENTITY_CODE_FORMAT_EXAMPLE
+    )
     @Getter
     @Setter
     private String legalEntityCode;
