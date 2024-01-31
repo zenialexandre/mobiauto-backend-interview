@@ -40,6 +40,7 @@ public class ResaleManagementController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
+    @ResponseBody
     public ResponseEntity<?> createResale(final @Valid @RequestBody ResaleVO resaleVO) {
         return resaleManagementService.createResale(resaleVO);
     }

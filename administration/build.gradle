@@ -1,4 +1,4 @@
-group = 'com.microservice.serviceeditingopportunities'
+group = 'com.microservice.administration'
 version = '0.0.1-SNAPSHOT'
 
 dependencies {
