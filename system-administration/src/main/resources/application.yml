@@ -2,11 +2,11 @@ server:
   port: 8083
 spring:
   application:
-    name: administration
+    name: system-administration
   datasource:
     username: admin
     password: admin_password
-    url: jdbc:postgresql://localhost:5432/administration
+    url: jdbc:postgresql://localhost:5432/system-administration
   jpa:
     hibernate:
       ddl-auto: update

@@ -1,13 +1,13 @@
-package com.microservice.administration.business.mappers;
+package com.microservice.systemadministration.business.mappers;
 
-import com.microservice.administration.business.entities.User;
-import com.microservice.administration.business.vo.UserVO;
+import com.microservice.systemadministration.business.entities.User;
+import com.microservice.systemadministration.business.vo.UserVO;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @NoArgsConstructor
 @Component
-public class AdministrationMapper {
+public class SystemAdministrationMapper {
 
     public User map(final UserVO userVO) {
         return User.builder()

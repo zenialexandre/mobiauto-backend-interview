@@ -1,7 +1,7 @@
-package com.microservice.administration.inbound.controller;
+package com.microservice.systemadministration.inbound.controller;
 
-import com.microservice.administration.business.services.AdministrationService;
-import com.microservice.administration.business.vo.UserVO;
+import com.microservice.systemadministration.business.services.SystemAdministrationService;
+import com.microservice.systemadministration.business.vo.UserVO;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @AllArgsConstructor
 @RestController
 @RequestMapping("api/v1/administration")
-public class AdministrationController {
+public class SystemAdministrationController {
 
     @Autowired
-    private AdministrationService administrationService;
+    private SystemAdministrationService administrationService;
 
     @PostMapping(
             path = "/create-user",

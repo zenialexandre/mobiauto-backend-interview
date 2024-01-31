@@ -1,9 +1,9 @@
-package com.microservice.administration.business.services;
+package com.microservice.systemadministration.business.services;
 
-import com.microservice.administration.business.entities.User;
-import com.microservice.administration.business.mappers.AdministrationMapper;
-import com.microservice.administration.business.repositories.UserRepository;
-import com.microservice.administration.business.vo.UserVO;
+import com.microservice.systemadministration.business.entities.User;
+import com.microservice.systemadministration.business.mappers.SystemAdministrationMapper;
+import com.microservice.systemadministration.business.repositories.UserRepository;
+import com.microservice.systemadministration.business.vo.UserVO;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 
 @NoArgsConstructor
 @Service
-public class AdministrationService {
+public class SystemAdministrationService {
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private AdministrationMapper administrationMapper;
+    private SystemAdministrationMapper administrationMapper;
 
     public ResponseEntity<?> createUser(final UserVO userVO) {
         try {
