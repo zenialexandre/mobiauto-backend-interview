@@ -1,5 +1,6 @@
 package com.microservice.systemadministration.business.entities;
 
+import com.microservice.systemadministration.business.vo.enums.UserRoleEnum;
 import com.microservice.systemadministration.utils.constants.SystemAdministrationConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
@@ -9,6 +10,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "resale")
+@Table(name = "user_table")
 public class User {
 
     @Id
@@ -46,5 +49,16 @@ public class User {
     @Column(name = "password")
     @Schema(description = "The password of the user.")
     private String password;
+
+    @Column(name = "user_role")
+    @Schema(
+            description = "The role of the user, it can be equal to: " +
+                    "-> ADMINISTRATOR, " +
+                    "-> OWNER, " +
+                    "-> MANAGER, " +
+                    "-> ASSISTANT"
+    )
+    @Enumerated(EnumType.STRING)
+    private UserRoleEnum userRole;
 
 }

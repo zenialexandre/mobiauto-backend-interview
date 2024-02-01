@@ -2,6 +2,7 @@ package com.microservice.resalemanagement.inbound.controller;
 
 import com.microservice.resalemanagement.business.services.ResaleManagementService;
 import com.microservice.resalemanagement.business.vo.ResaleVO;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/v1/resale-management")
+@Tag(
+        name = "Resale Management",
+        description = "API that handles the requests to resale-management microservice."
+)
 public class ResaleManagementController {
 
     @Autowired

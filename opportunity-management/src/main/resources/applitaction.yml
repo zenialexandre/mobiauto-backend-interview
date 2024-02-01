@@ -1,5 +1,9 @@
 server:
   port: 8080
+  error:
+    whitelabel:
+      enabled: false
+    include-stacktrace: ALWAYS
 spring:
   application:
     name: opportunity-management

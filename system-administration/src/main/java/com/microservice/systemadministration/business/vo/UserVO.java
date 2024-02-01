@@ -40,4 +40,10 @@ public class UserVO {
     @Setter
     private String password;
 
+    @JsonProperty("userRole")
+    @NotNull(message = SystemCommonsConstants.NOT_NULLABLE_FIELD)
+    @Getter
+    @Setter
+    private String userRole;
+
 }
