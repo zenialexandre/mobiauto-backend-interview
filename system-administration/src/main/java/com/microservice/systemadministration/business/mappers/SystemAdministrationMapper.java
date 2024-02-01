@@ -6,7 +6,6 @@ import com.microservice.systemadministration.business.vo.enums.UserRoleEnum;
 import com.microservice.systemadministration.inbound.configuration.security.SystemAdministrationSecurityConfiguration;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @NoArgsConstructor

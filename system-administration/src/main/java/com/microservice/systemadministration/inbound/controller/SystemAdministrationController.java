@@ -2,6 +2,7 @@ package com.microservice.systemadministration.inbound.controller;
 
 import com.microservice.systemadministration.business.services.SystemAdministrationService;
 import com.microservice.systemadministration.business.vo.UserVO;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @AllArgsConstructor
 @RestController
 @RequestMapping("api/v1/system-administration")
+@Tag(
+        name = "System Administration",
+        description = "API that handles the requests to system-administration microservice."
+)
 public class SystemAdministrationController {
 
     @Autowired
@@ -30,6 +35,7 @@ public class SystemAdministrationController {
             path = "/{userSequenceId}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
+    @ResponseBody
     public ResponseEntity<?> getUserBySequenceId(final @PathVariable("userSequenceId") Integer userSequenceId) {
         return systemAdministrationService.getUserBySequenceId(userSequenceId);
     }

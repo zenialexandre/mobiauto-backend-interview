@@ -37,7 +37,8 @@ public class ResaleManagementService {
         try {
             final Resale resale = resaleManagementMapper.map(resaleVO);
             resaleManagementRepository.saveAndFlush(resale);
-            return ResponseEntity.ok(HttpStatus.CREATED).ok(resale);
+            ResponseEntity.ok(HttpStatus.CREATED);
+            return ResponseEntity.ok(resale);
         } catch (final Exception exception) {
             return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
         }

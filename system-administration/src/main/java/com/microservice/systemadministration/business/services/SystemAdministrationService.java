@@ -37,7 +37,8 @@ public class SystemAdministrationService {
         try {
             final User user = systemAdministrationMapper.map(userVO);
             userRepository.saveAndFlush(user);
-            return ResponseEntity.ok(HttpStatus.CREATED).ok(user);
+            ResponseEntity.ok(HttpStatus.CREATED);
+            return ResponseEntity.ok(user);
         } catch (final Exception exception) {
             return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
         }
