@@ -1,6 +1,5 @@
 package com.microservice.systemadministration.business.entities;
 
-import com.microservice.systemadministration.business.vo.enums.UserRoleEnum;
 import com.microservice.systemadministration.utils.constants.SystemAdministrationConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
@@ -10,17 +9,21 @@ import jakarta.persistence.Column;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "user_table")
 public class User {
@@ -50,15 +53,20 @@ public class User {
     @Schema(description = "The password of the user.")
     private String password;
 
-    @Column(name = "user_role")
-    @Schema(
-            description = "The role of the user, it can be equal to: " +
-                    "-> ADMINISTRATOR, " +
-                    "-> OWNER, " +
-                    "-> MANAGER, " +
-                    "-> ASSISTANT"
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_table_role_junction",
+            joinColumns = {
+                    @JoinColumn(
+                            name = SystemAdministrationConstants.USER_SEQUENCE_ID
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = SystemAdministrationConstants.ROLE_SEQUENCE_ID
+                    )
+            }
     )
-    @Enumerated(EnumType.STRING)
-    private UserRoleEnum userRole;
+    private Set<Role> roles;
 
 }

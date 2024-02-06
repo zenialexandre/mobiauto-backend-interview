@@ -1,8 +1,10 @@
 package com.microservice.systemadministration.business.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.microservice.systemadministration.business.entities.Role;
 import com.microservice.systemadministration.business.entities.User;
 import com.microservice.systemadministration.business.mappers.SystemAdministrationMapper;
+import com.microservice.systemadministration.business.repositories.RoleRepository;
 import com.microservice.systemadministration.business.repositories.UserRepository;
 import com.microservice.systemadministration.business.vo.UserVO;
 import lombok.NoArgsConstructor;
@@ -17,6 +19,9 @@ public class SystemAdministrationService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private SystemAdministrationMapper systemAdministrationMapper;
@@ -46,12 +51,16 @@ public class SystemAdministrationService {
 
     public ResponseEntity<?> deleteUser(final Integer userSequenceId) {
         try {
-            final User resale = userRepository.findById(userSequenceId).get();
-            userRepository.delete(resale);
+            final User user = userRepository.findById(userSequenceId).get();
+            userRepository.delete(user);
             return ResponseEntity.ok(HttpStatus.OK);
         } catch (final Exception exception) {
             return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    public Role getRoleByName(final String roleName) {
+        return roleRepository.findRoleByName(roleName).get();
     }
 
 }

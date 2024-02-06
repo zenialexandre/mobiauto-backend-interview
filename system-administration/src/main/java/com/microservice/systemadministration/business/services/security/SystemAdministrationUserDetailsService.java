@@ -22,12 +22,7 @@ public class SystemAdministrationUserDetailsService implements UserDetailsServic
             final User user = userRepository.findByEmail(email).orElseThrow(() ->
                     new UsernameNotFoundException("User not found by the email provided.")
             );
-
-            return org.springframework.security.core.userdetails.User
-                    .withUsername(user.getEmail())
-                    .password(user.getPassword())
-                    .roles(user.getUserRole().name())
-                    .build();
+            return new SystemAdministrationUserDetails(user);
         } catch (final Exception exception) {
             throw new UsernameNotFoundException(exception.getMessage());
         }

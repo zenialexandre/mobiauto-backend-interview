@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("api/v1/system-administration")
 @Tag(
         name = "System Administration",
-        description = "API that handles the requests to system-administration microservice."
+        description = "API that handles the requests to the system-administration microservice."
 )
 public class SystemAdministrationController {
 

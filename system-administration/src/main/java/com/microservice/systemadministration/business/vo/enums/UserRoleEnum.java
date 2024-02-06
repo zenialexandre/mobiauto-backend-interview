@@ -1,5 +1,10 @@
 package com.microservice.systemadministration.business.vo.enums;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
 public enum UserRoleEnum {
 
     ADMINISTRATOR("ADM"),
@@ -9,16 +14,12 @@ public enum UserRoleEnum {
 
     private String userRoleType;
 
-    private UserRoleEnum(final String userRoleType) {
+    UserRoleEnum(final String userRoleType) {
         setUserRoleType(userRoleType);
     }
 
     private void setUserRoleType(final String userRoleType) {
         this.userRoleType = userRoleType;
-    }
-
-    public String getUserRoleType() {
-        return userRoleType;
     }
 
 }

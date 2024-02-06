@@ -5,6 +5,8 @@ server:
       enabled: false
     include-stacktrace: ALWAYS
 spring:
+  main:
+    allow-circular-references: true
   application:
     name: system-administration
   datasource:
