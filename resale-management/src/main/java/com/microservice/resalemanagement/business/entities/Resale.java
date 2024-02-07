@@ -35,7 +35,7 @@ public class Resale {
     )
     private Integer resaleSequenceId;
 
-    @Column(name = "legal_entity_code")
+    @Column(name = "legal_entity_code", unique = true)
     @Schema(description = "This field represents the legal entity code of the company (CNPJ).")
     private String legalEntityCode;
 

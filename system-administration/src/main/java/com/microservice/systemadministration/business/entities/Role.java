@@ -1,6 +1,5 @@
 package com.microservice.systemadministration.business.entities;
 
-import com.microservice.systemadministration.business.vo.enums.UserRoleEnum;
 import com.microservice.systemadministration.utils.constants.SystemAdministrationConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;

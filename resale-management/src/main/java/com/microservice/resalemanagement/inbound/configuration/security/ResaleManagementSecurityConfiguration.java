@@ -1,8 +1,7 @@
-package com.microservice.systemadministration.inbound.configuration.security;
+package com.microservice.resalemanagement.inbound.configuration.security;
 
 import com.microservice.systemadministration.business.entities.User;
 import com.microservice.systemadministration.business.services.security.SystemAdministrationSecurityService;
-import com.microservice.systemadministration.business.services.security.SystemAdministrationUserDetailsService;
 import com.microservice.systemadministration.utils.constants.SystemAdministrationConstants;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.security.access.expression.method.MethodSecurityExpre
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -24,25 +22,20 @@ import org.springframework.security.web.SecurityFilterChain;
 @NoArgsConstructor
 @Configuration
 @EnableWebSecurity
-@EnableGlobalAuthentication
-public class SystemAdministrationSecurityConfiguration {
+public class ResaleManagementSecurityConfiguration {
 
     @Autowired
     private SystemAdministrationSecurityService systemAdministrationSecurityService;
 
-    @Autowired
-    private SystemAdministrationUserDetailsService systemAdministrationUserDetailsService;
-
     @Bean
-    public SecurityFilterChain systemAdministrationFilterChain(final HttpSecurity httpSecurity) {
+    public SecurityFilterChain resaleManagementFilterChain(final HttpSecurity httpSecurity) {
         try {
             httpSecurity.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
-                authorizationManagerRequestMatcherRegistry
-                        .requestMatchers("/api/v1/system-administration/**")
-                        .hasAnyAuthority(SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME)
-                        .requestMatchers("/login/**").permitAll()
-                        .anyRequest().authenticated();
-            }).httpBasic(Customizer.withDefaults())
+                        authorizationManagerRequestMatcherRegistry
+                                .requestMatchers("/api/v1/resale-management/**")
+                                .hasAuthority(SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME)
+                                .requestMatchers("/login/**").authenticated();
+                    }).httpBasic(Customizer.withDefaults())
                     .sessionManagement(httpSecuritySessionManagementConfigurer -> {
                         httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                     });
