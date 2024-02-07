@@ -7,6 +7,7 @@ import com.microservice.systemadministration.business.mappers.SystemAdministrati
 import com.microservice.systemadministration.business.repositories.RoleRepository;
 import com.microservice.systemadministration.business.repositories.UserRepository;
 import com.microservice.systemadministration.business.vo.UserVO;
+import com.microservice.systemadministration.inbound.configuration.security.SystemAdministrationSecurityConfiguration;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,9 +39,9 @@ public class SystemAdministrationService {
         }
     }
 
-    public ResponseEntity<?> createUser(final UserVO userVO) {
+    public ResponseEntity<?> createUser(final SystemAdministrationSecurityConfiguration systemAdministrationSecurityConfiguration, final UserVO userVO) {
         try {
-            final User user = systemAdministrationMapper.map(userVO);
+            final User user = systemAdministrationMapper.map(this, systemAdministrationSecurityConfiguration, userVO);
             userRepository.saveAndFlush(user);
             ResponseEntity.ok(HttpStatus.CREATED);
             return ResponseEntity.ok(user);

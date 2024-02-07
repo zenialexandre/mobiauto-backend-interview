@@ -1,6 +1,7 @@
 package com.microservice.systemadministration.inbound.configuration.security;
 
 import com.microservice.systemadministration.business.entities.User;
+import com.microservice.systemadministration.business.services.SystemAdministrationService;
 import com.microservice.systemadministration.business.services.security.SystemAdministrationSecurityService;
 import com.microservice.systemadministration.business.services.security.SystemAdministrationUserDetailsService;
 import com.microservice.systemadministration.utils.constants.SystemAdministrationConstants;
@@ -26,6 +27,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableGlobalAuthentication
 public class SystemAdministrationSecurityConfiguration {
+
+    @Autowired
+    private SystemAdministrationService systemAdministrationService;
 
     @Autowired
     private SystemAdministrationSecurityService systemAdministrationSecurityService;
@@ -69,7 +73,7 @@ public class SystemAdministrationSecurityConfiguration {
 
     @Bean
     public User defaultAdministratorUserProcess() {
-        return systemAdministrationSecurityService.defaultAdministratorUserProcess();
+        return systemAdministrationSecurityService.defaultAdministratorUserProcess(systemAdministrationService);
     }
 
     @Bean

@@ -6,7 +6,6 @@ server:
     include-stacktrace: ALWAYS
 spring:
   main:
-    allow-circular-references: true
     allow-bean-definition-overriding: true
   application:
     name: system-administration

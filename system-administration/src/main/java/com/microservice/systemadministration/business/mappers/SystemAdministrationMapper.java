@@ -5,7 +5,6 @@ import com.microservice.systemadministration.business.services.SystemAdministrat
 import com.microservice.systemadministration.business.vo.UserVO;
 import com.microservice.systemadministration.inbound.configuration.security.SystemAdministrationSecurityConfiguration;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -14,13 +13,9 @@ import java.util.Set;
 @Component
 public class SystemAdministrationMapper {
 
-    @Autowired
-    private SystemAdministrationService systemAdministrationService;
-
-    @Autowired
-    private SystemAdministrationSecurityConfiguration systemAdministrationSecurityConfiguration;
-
-    public User map(final UserVO userVO) {
+    public User map(final SystemAdministrationService systemAdministrationService,
+                    final SystemAdministrationSecurityConfiguration systemAdministrationSecurityConfiguration,
+                    final UserVO userVO) {
         return User.builder()
                 .userName(userVO.getUserName())
                 .email(userVO.getEmail())

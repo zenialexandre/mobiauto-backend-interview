@@ -1,6 +1,7 @@
 package com.microservice.resalemanagement.inbound.configuration.security;
 
 import com.microservice.systemadministration.business.entities.User;
+import com.microservice.systemadministration.business.services.SystemAdministrationService;
 import com.microservice.systemadministration.business.services.security.SystemAdministrationSecurityService;
 import com.microservice.systemadministration.utils.constants.SystemAdministrationConstants;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class ResaleManagementSecurityConfiguration {
+
+    @Autowired
+    private SystemAdministrationService systemAdministrationService;
 
     @Autowired
     private SystemAdministrationSecurityService systemAdministrationSecurityService;
@@ -62,7 +66,7 @@ public class ResaleManagementSecurityConfiguration {
 
     @Bean
     public User defaultAdministratorUserProcess() {
-        return systemAdministrationSecurityService.defaultAdministratorUserProcess();
+        return systemAdministrationSecurityService.defaultAdministratorUserProcess(systemAdministrationService);
     }
 
     @Bean

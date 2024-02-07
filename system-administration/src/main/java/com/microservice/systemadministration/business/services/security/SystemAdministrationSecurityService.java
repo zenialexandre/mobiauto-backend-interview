@@ -6,7 +6,6 @@ import com.microservice.systemadministration.business.entities.User;
 import com.microservice.systemadministration.business.repositories.RoleRepository;
 import com.microservice.systemadministration.business.repositories.UserRepository;
 import com.microservice.systemadministration.business.services.SystemAdministrationService;
-import com.microservice.systemadministration.business.vo.enums.UserRoleEnum;
 import com.microservice.systemadministration.utils.constants.SystemAdministrationConstants;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +25,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Service
 public class SystemAdministrationSecurityService {
-
-    @Autowired
-    private SystemAdministrationService systemAdministrationService;
 
     @Autowired
     private SystemAdministrationUserDetailsService systemAdministrationUserDetailsService;
@@ -77,16 +73,16 @@ public class SystemAdministrationSecurityService {
         return administratorRole;
     }
 
-    public User defaultAdministratorUserProcess() {
+    public User defaultAdministratorUserProcess(final SystemAdministrationService systemAdministrationService) {
         try {
             return userRepository.findByEmail(SystemAdministrationConstants.DEFAULT_ADMINISTRATOR_USER_EMAIL)
-                    .orElseGet(this::createDefaultAdministratorUser);
+                    .orElseGet(() -> createDefaultAdministratorUser(systemAdministrationService));
         } catch (final Exception exception) {
             throw new RuntimeException(exception.getMessage());
         }
     }
 
-    protected User createDefaultAdministratorUser() {
+    protected User createDefaultAdministratorUser(final SystemAdministrationService systemAdministrationService) {
         final Role defaultAdminsitratorRole = systemAdministrationService.getRoleByName(SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME);
         final User defaultAdminsitratorUser = User.builder()
                 .userName("admin")

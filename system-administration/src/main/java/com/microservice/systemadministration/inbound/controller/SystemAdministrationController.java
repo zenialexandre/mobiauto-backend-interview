@@ -2,6 +2,7 @@ package com.microservice.systemadministration.inbound.controller;
 
 import com.microservice.systemadministration.business.services.SystemAdministrationService;
 import com.microservice.systemadministration.business.vo.UserVO;
+import com.microservice.systemadministration.inbound.configuration.security.SystemAdministrationSecurityConfiguration;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SystemAdministrationController {
 
     @Autowired
+    private SystemAdministrationSecurityConfiguration systemAdministrationSecurityConfiguration;
+
+    @Autowired
     private SystemAdministrationService systemAdministrationService;
 
     @GetMapping(
@@ -48,7 +52,7 @@ public class SystemAdministrationController {
     )
     @ResponseBody
     public ResponseEntity<?> createUser(final @Valid @RequestBody UserVO userVO) {
-        return systemAdministrationService.createUser(userVO);
+        return systemAdministrationService.createUser(systemAdministrationSecurityConfiguration, userVO);
     }
 
     @DeleteMapping(
