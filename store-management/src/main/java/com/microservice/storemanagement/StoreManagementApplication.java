@@ -1,11 +1,12 @@
-package com.microservice.opportunitymanagement;
+package com.microservice.storemanagement;
 
 import com.microservice.opportunitymanagement.business.entities.Opportunity;
-import com.microservice.opportunitymanagement.business.mappers.OpportunityManagementMapper;
-import com.microservice.opportunitymanagement.business.repositories.OpportunityRepository;
-import com.microservice.opportunitymanagement.business.services.OpportunityManagementService;
-import com.microservice.opportunitymanagement.inbound.configuration.security.OpportunityManagementSecurityConfiguration;
-import com.microservice.opportunitymanagement.inbound.controller.OpportunityManagementController;
+import com.microservice.storemanagement.business.entities.Store;
+import com.microservice.storemanagement.business.mappers.StoreManagementMapper;
+import com.microservice.storemanagement.business.repositories.StoreRepository;
+import com.microservice.storemanagement.business.services.StoreManagementService;
+import com.microservice.storemanagement.inbound.configuration.security.StoreManagementSecurityConfiguration;
+import com.microservice.storemanagement.inbound.controller.StoreManagementController;
 import com.microservice.systemadministration.business.entities.User;
 import com.microservice.systemadministration.business.mappers.SystemAdministrationMapper;
 import com.microservice.systemadministration.business.repositories.UserRepository;
@@ -20,31 +21,32 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @ComponentScan(basePackageClasses = {
-        OpportunityManagementController.class,
-        OpportunityManagementMapper.class,
-        OpportunityManagementService.class,
+        StoreManagementController.class,
+        StoreManagementService.class,
+        StoreManagementMapper.class,
         SystemAdministrationSecurityService.class,
         SystemAdministrationService.class,
         SystemAdministrationMapper.class,
         SystemAdministrationSecurityConfiguration.class
 })
 @ConfigurationPropertiesScan(basePackageClasses = {
-        OpportunityManagementSecurityConfiguration.class,
+        StoreManagementSecurityConfiguration.class,
         SystemAdministrationSecurityConfiguration.class
 })
 @EntityScan(basePackageClasses = {
+        Store.class,
         Opportunity.class,
         User.class
 })
 @EnableJpaRepositories(basePackageClasses = {
-        OpportunityRepository.class,
+        StoreRepository.class,
         UserRepository.class
 })
 @SpringBootApplication
-public class OpportunityManagementApplication {
+public class StoreManagementApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OpportunityManagementApplication.class, args);
+        SpringApplication.run(StoreManagementApplication.class, args);
     }
 
 }

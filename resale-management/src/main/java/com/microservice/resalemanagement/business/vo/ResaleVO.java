@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CNPJ;
 
+@Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ResaleVO {
 
@@ -18,14 +20,10 @@ public class ResaleVO {
             message = "Expected format: " + ResaleManagementConstants.LEGAL_ENTITY_CODE_EXPECTED_FORMAT +
                     ". Format example: " + ResaleManagementConstants.LEGAL_ENTITY_CODE_FORMAT_EXAMPLE
     )
-    @Getter
-    @Setter
     private String legalEntityCode;
 
     @JsonProperty("resaleSocialName")
     @NotNull(message = SystemCommonsConstants.NOT_NULLABLE_FIELD)
-    @Getter
-    @Setter
     private String resaleSocialName;
 
 }

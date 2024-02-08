@@ -1,7 +1,6 @@
-package com.microservice.resalemanagement.inbound.controller;
+package com.microservice.storemanagement.inbound.controller;
 
-import com.microservice.resalemanagement.business.services.ResaleManagementService;
-import com.microservice.resalemanagement.business.vo.ResaleVO;
+import com.microservice.storemanagement.business.services.StoreManagementService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -21,41 +20,41 @@ import org.springframework.web.bind.annotation.RequestBody;
 @NoArgsConstructor
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/v1/resale-management")
+@RequestMapping("/api/v1/store-management")
 @Tag(
-        name = "Resale Management",
-        description = "API that handles the requests to resale-management microservice."
+        name = "Store Management",
+        description = "API that handles the requests to store-management microservice."
 )
-public class ResaleManagementController {
+public class StoreManagementController {
 
-    @Autowired
-    private ResaleManagementService resaleManagementService;
+   /* @Autowired
+    private StoreManagementService storeManagementService;
 
     @GetMapping(
-            path = "/{resaleSequenceId}",
+            path = "/{storeSequenceId}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseBody
-    public ResponseEntity<?> getResaleBySequenceId(final @PathVariable("resaleSequenceId") Integer resaleSequenceId) {
-        return resaleManagementService.getResaleBySequenceId(resaleSequenceId);
+    public ResponseEntity<?> getStoreBySequenceId(final @PathVariable("storeSequenceId") Integer storeSequenceId) {
+        return storeManagementService.getStoreBySequenceId(storeSequenceId);
     }
 
     @PostMapping(
-            path = "/create-resale",
+            path = "/create-store",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseBody
-    public ResponseEntity<?> createResale(final @Valid @RequestBody ResaleVO resaleVO) {
-        return resaleManagementService.createResale(resaleVO);
+    public ResponseEntity<?> createStore(final @Valid @RequestBody StoreVO storeVO) {
+        return storeManagementService.createStore(storeVO);
     }
 
     @DeleteMapping(
-            path = "/delete-resale/{resaleSequenceId}",
+            path = "/delete-store/{storeSequenceId}",
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> deleteResale(final @PathVariable("resaleSequenceId") Integer resaleSequenceId) {
-        return resaleManagementService.deleteResale(resaleSequenceId);
-    }
+    public ResponseEntity<?> deleteStore(final @PathVariable("storeSequenceId") Integer storeSequenceId) {
+        return storeManagementService.deleteStore(storeSequenceId);
+    }*/
 
 }

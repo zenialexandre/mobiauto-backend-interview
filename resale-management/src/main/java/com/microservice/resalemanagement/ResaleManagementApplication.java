@@ -2,7 +2,7 @@ package com.microservice.resalemanagement;
 
 import com.microservice.resalemanagement.business.entities.Resale;
 import com.microservice.resalemanagement.business.mappers.ResaleManagementMapper;
-import com.microservice.resalemanagement.business.repositories.ResaleManagementRepository;
+import com.microservice.resalemanagement.business.repositories.ResaleRepository;
 import com.microservice.resalemanagement.business.services.ResaleManagementService;
 import com.microservice.resalemanagement.inbound.configuration.security.ResaleManagementSecurityConfiguration;
 import com.microservice.resalemanagement.inbound.controller.ResaleManagementController;
@@ -38,7 +38,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         User.class
 })
 @EnableJpaRepositories(basePackageClasses = {
-        ResaleManagementRepository.class,
+        ResaleRepository.class,
         UserRepository.class
 })
 public class ResaleManagementApplication {

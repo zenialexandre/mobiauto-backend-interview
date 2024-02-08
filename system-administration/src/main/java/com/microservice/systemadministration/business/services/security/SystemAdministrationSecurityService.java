@@ -1,6 +1,7 @@
 package com.microservice.systemadministration.business.services.security;
 
 import com.google.common.collect.ImmutableList;
+import com.microservice.systemadministration.business.entities.Profile;
 import com.microservice.systemadministration.business.entities.Role;
 import com.microservice.systemadministration.business.entities.User;
 import com.microservice.systemadministration.business.repositories.RoleRepository;
@@ -83,12 +84,15 @@ public class SystemAdministrationSecurityService {
     }
 
     protected User createDefaultAdministratorUser(final SystemAdministrationService systemAdministrationService) {
-        final Role defaultAdminsitratorRole = systemAdministrationService.getRoleByName(SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME);
+        final Profile defaultAdminsitratorProfile = Profile.builder()
+                .profileName("Unique Administrator Profile")
+                .profileRole(systemAdministrationService.getRoleByName(SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME))
+                .build();
         final User defaultAdminsitratorUser = User.builder()
                 .userName("admin")
                 .email(SystemAdministrationConstants.DEFAULT_ADMINISTRATOR_USER_EMAIL)
                 .password(passwordEncoder().encode("admin"))
-                .roles(Set.of(defaultAdminsitratorRole))
+                .profiles(Set.of(defaultAdminsitratorProfile))
                 .build();
         userRepository.saveAndFlush(defaultAdminsitratorUser);
         return defaultAdminsitratorUser;

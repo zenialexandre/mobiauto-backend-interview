@@ -1,6 +1,6 @@
 package com.microservice.systemadministration.business.services.security;
 
-import com.microservice.systemadministration.business.entities.Role;
+import com.microservice.systemadministration.business.entities.Profile;
 import com.microservice.systemadministration.business.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -21,11 +21,11 @@ public class SystemAdministrationUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        final Set<Role> roles = user.getRoles();
+        final Set<Profile> profiles = user.getProfiles();
         final List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-        for (final Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+        for (final Profile profile : profiles) {
+            authorities.add(new SimpleGrantedAuthority(profile.getProfileRole().getRoleName()));
         }
         return authorities;
     }

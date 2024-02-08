@@ -17,9 +17,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
+@Getter
+@Setter
 @Data
 @Builder
 @NoArgsConstructor
@@ -55,7 +59,7 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "user_table_role_junction",
+            name = "user_table_profile_junction",
             joinColumns = {
                     @JoinColumn(
                             name = SystemAdministrationConstants.USER_SEQUENCE_ID
@@ -63,10 +67,10 @@ public class User {
             },
             inverseJoinColumns = {
                     @JoinColumn(
-                            name = SystemAdministrationConstants.ROLE_SEQUENCE_ID
+                            name = SystemAdministrationConstants.PROFILE_SEQUENCE_ID
                     )
             }
     )
-    private Set<Role> roles;
+    private Set<Profile> profiles;
 
 }

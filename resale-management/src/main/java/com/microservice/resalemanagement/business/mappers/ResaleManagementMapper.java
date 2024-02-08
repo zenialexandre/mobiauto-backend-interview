@@ -5,8 +5,8 @@ import com.microservice.resalemanagement.business.vo.ResaleVO;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@Component
 @NoArgsConstructor
+@Component
 public class ResaleManagementMapper {
 
     public Resale map(final ResaleVO resaleVO) {
