@@ -1,5 +1,7 @@
 package com.microservice.systemadministration.inbound.configuration.security;
 
+import com.microservice.systemadministration.business.entities.Profile;
+import com.microservice.systemadministration.business.entities.Role;
 import com.microservice.systemadministration.business.entities.User;
 import com.microservice.systemadministration.business.services.SystemAdministrationService;
 import com.microservice.systemadministration.business.services.security.SystemAdministrationSecurityService;
@@ -38,7 +40,7 @@ public class SystemAdministrationSecurityConfiguration {
     private SystemAdministrationUserDetailsService systemAdministrationUserDetailsService;
 
     @Bean
-    public SecurityFilterChain systemAdministrationFilterChain(final HttpSecurity httpSecurity) {
+    public SecurityFilterChain filterChain(final HttpSecurity httpSecurity) {
         try {
             httpSecurity.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                 authorizationManagerRequestMatcherRegistry
@@ -72,8 +74,18 @@ public class SystemAdministrationSecurityConfiguration {
     }
 
     @Bean
-    public User defaultAdministratorUserProcess() {
-        return systemAdministrationSecurityService.defaultAdministratorUserProcess(systemAdministrationService);
+    public Role defaultRolesOnStartUp() {
+        return systemAdministrationSecurityService.defaultRolesOnStartUp();
+    }
+
+    @Bean
+    public Profile defaultProfileOnStartUp(final SystemAdministrationService systemAdministrationService) {
+       return systemAdministrationSecurityService.defaultProfileOnStartUp(systemAdministrationService);
+    }
+
+    @Bean
+    public User defaultAdministratorUserOnStartUp() {
+        return systemAdministrationSecurityService.defaultAdministratorUserOnStartUp(systemAdministrationService);
     }
 
     @Bean

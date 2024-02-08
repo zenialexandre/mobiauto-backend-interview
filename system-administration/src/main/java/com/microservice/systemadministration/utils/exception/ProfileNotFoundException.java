@@ -9,7 +9,7 @@ public class ProfileNotFoundException extends RuntimeException {
     }
 
     private void setMessage(final Integer profileSequenceId) {
-        this.message = "Role with sequence id equal to '" + profileSequenceId + "' not found.";
+        this.message = "Profile with sequence id equal to '" + profileSequenceId + "' not found.";
     }
 
     @Override

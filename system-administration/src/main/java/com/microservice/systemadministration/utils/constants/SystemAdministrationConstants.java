@@ -8,6 +8,7 @@ public final class SystemAdministrationConstants {
     public static final String ROLE_SEQUENCE_ID = "role_sequence_id";
     public static final String PROFILE_SEQUENCE_ID = "profile_sequence_id";
     public static final String DEFAULT_ADMINISTRATOR_USER_EMAIL = "admin@gmail.com";
+    public static final String DEFAULT_PROFILE_NAME = "Unique Administrator Profile";
     public static final String ADMINISTRATOR_ROLE_NAME = UserRoleEnum.ADMINISTRATOR.name();
     public static final String OWNER_ROLE_NAME = UserRoleEnum.OWNER.name();
     public static final String MANAGER_ROLE_NAME = UserRoleEnum.MANAGER.name();

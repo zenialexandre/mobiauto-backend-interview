@@ -11,6 +11,7 @@ import com.microservice.systemadministration.business.repositories.UserRepositor
 import com.microservice.systemadministration.business.vo.ProfileVO;
 import com.microservice.systemadministration.business.vo.UserVO;
 import com.microservice.systemadministration.inbound.configuration.security.SystemAdministrationSecurityConfiguration;
+import com.microservice.systemadministration.utils.exception.ProfileNotFoundByNameException;
 import com.microservice.systemadministration.utils.exception.ProfileNotFoundException;
 import com.microservice.systemadministration.utils.exception.RoleNotFoundException;
 import lombok.NoArgsConstructor;
@@ -106,6 +107,12 @@ public class SystemAdministrationService {
         } catch (final Exception exception) {
             return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    public Profile getProfileByName(final String profileName) {
+        return profileRepository.findProfileByName(profileName).orElseThrow(() ->
+                new ProfileNotFoundByNameException(profileName)
+        );
     }
 
     public Role getRoleByName(final String roleName) {

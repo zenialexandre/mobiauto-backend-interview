@@ -6,7 +6,16 @@ import com.microservice.storemanagement.utils.constants.StoreManagementConstants
 import com.microservice.systemadministration.business.entities.User;
 import com.microservice.systemadministration.utils.constants.SystemAdministrationConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,20 +47,24 @@ public class Store {
     @Column(name = "store_name")
     private String storeName;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(
+            mappedBy = StoreManagementConstants.STORE_SEQUENCE_ID,
+            fetch = FetchType.EAGER
+    )
     @JoinColumn(
             name = StoreManagementConstants.STORE_SEQUENCE_ID,
             referencedColumnName = SystemAdministrationConstants.USER_SEQUENCE_ID
     )
-    @Column(name = "store_users")
     private Set<User> storeUsers;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(
+            mappedBy = StoreManagementConstants.STORE_SEQUENCE_ID,
+            fetch = FetchType.EAGER
+    )
     @JoinColumn(
             name = StoreManagementConstants.STORE_SEQUENCE_ID,
             referencedColumnName = OpportunityManagementConstants.OPPORTUNITY_SEQUENCE_ID
     )
-    @Column(name = "store_opportunities")
     private Set<Opportunity> storeOpportunities;
 
 }

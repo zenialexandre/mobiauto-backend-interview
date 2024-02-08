@@ -1,5 +1,7 @@
 package com.microservice.opportunitymanagement.inbound.configuration.security;
 
+import com.microservice.systemadministration.business.entities.Profile;
+import com.microservice.systemadministration.business.entities.Role;
 import com.microservice.systemadministration.business.entities.User;
 import com.microservice.systemadministration.business.services.SystemAdministrationService;
 import com.microservice.systemadministration.business.services.security.SystemAdministrationSecurityService;
@@ -32,11 +34,11 @@ public class OpportunityManagementSecurityConfiguration {
     private SystemAdministrationSecurityService systemAdministrationSecurityService;
 
     @Bean
-    public SecurityFilterChain resaleManagementFilterChain(final HttpSecurity httpSecurity) {
+    public SecurityFilterChain filterChain(final HttpSecurity httpSecurity) {
         try {
             httpSecurity.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                         authorizationManagerRequestMatcherRegistry
-                                .requestMatchers("/api/v1/store-management/**")
+                                .requestMatchers("/api/v1/opportunity-management/**")
                                 .hasAuthority(SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME)
                                 .requestMatchers("/login/**").authenticated();
                     }).httpBasic(Customizer.withDefaults())
@@ -65,8 +67,18 @@ public class OpportunityManagementSecurityConfiguration {
     }
 
     @Bean
-    public User defaultAdministratorUserProcess() {
-        return systemAdministrationSecurityService.defaultAdministratorUserProcess(systemAdministrationService);
+    public Role defaultRolesOnStartUp() {
+        return systemAdministrationSecurityService.defaultRolesOnStartUp();
+    }
+
+    @Bean
+    public Profile defaultProfileOnStartUp(final SystemAdministrationService systemAdministrationService) {
+        return systemAdministrationSecurityService.defaultProfileOnStartUp(systemAdministrationService);
+    }
+
+    @Bean
+    public User defaultAdministratorUserOnStartUp() {
+        return systemAdministrationSecurityService.defaultAdministratorUserOnStartUp(systemAdministrationService);
     }
 
     @Bean

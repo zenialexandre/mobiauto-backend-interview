@@ -1,16 +1,18 @@
 server:
-  port: 8080
+  port: 8084
   error:
     whitelabel:
       enabled: false
     include-stacktrace: ALWAYS
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
-    name: opportunity-management
+    name: store-management
   datasource:
     username: admin
     password: admin_password
-    url: jdbc:postgresql://localhost:5432/opportunity-management
+    url: jdbc:postgresql://localhost:5432/store-management
   jpa:
     hibernate:
       ddl-auto: update

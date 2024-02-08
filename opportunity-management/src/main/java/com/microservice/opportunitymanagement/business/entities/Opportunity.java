@@ -1,6 +1,8 @@
 package com.microservice.opportunitymanagement.business.entities;
 
 import com.microservice.opportunitymanagement.utils.constants.OpportunityManagementConstants;
+import com.microservice.storemanagement.business.entities.Store;
+import com.microservice.storemanagement.utils.constants.StoreManagementConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -9,7 +11,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Embedded;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,5 +49,12 @@ public class Opportunity {
 
     @Embedded
     private VehicleOfInterest vehicleOfInterest;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(
+            name = StoreManagementConstants.STORE_SEQUENCE_ID,
+            nullable = false
+    )
+    private Store store;
 
 }

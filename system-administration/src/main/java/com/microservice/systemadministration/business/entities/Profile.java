@@ -2,16 +2,7 @@ package com.microservice.systemadministration.business.entities;
 
 import com.microservice.systemadministration.utils.constants.SystemAdministrationConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,7 +42,6 @@ public class Profile {
             name = SystemAdministrationConstants.PROFILE_SEQUENCE_ID,
             referencedColumnName = SystemAdministrationConstants.ROLE_SEQUENCE_ID
     )
-    @Column(name = "profile_role")
     private Role profileRole;
 
 }

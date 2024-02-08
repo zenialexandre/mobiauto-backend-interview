@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8080
   error:
     whitelabel:
       enabled: false
@@ -8,11 +8,11 @@ spring:
   main:
     allow-bean-definition-overriding: true
   application:
-    name: service-editing-opportunities
+    name: opportunity-management
   datasource:
     username: admin
     password: admin_password
-    url: jdbc:postgresql://localhost:5432/service-editing-opportunities
+    url: jdbc:postgresql://localhost:5432/opportunity-management
   jpa:
     hibernate:
       ddl-auto: update

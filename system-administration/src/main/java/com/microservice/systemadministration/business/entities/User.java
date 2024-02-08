@@ -1,5 +1,7 @@
 package com.microservice.systemadministration.business.entities;
 
+import com.microservice.storemanagement.business.entities.Store;
+import com.microservice.storemanagement.utils.constants.StoreManagementConstants;
 import com.microservice.systemadministration.utils.constants.SystemAdministrationConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
@@ -10,6 +12,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
@@ -72,5 +75,12 @@ public class User {
             }
     )
     private Set<Profile> profiles;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(
+            name = StoreManagementConstants.STORE_SEQUENCE_ID,
+            nullable = false
+    )
+    private Store store;
 
 }

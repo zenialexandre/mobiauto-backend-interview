@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.microservice.systemadministration.business.entities.Profile;
 import com.microservice.systemadministration.business.entities.Role;
 import com.microservice.systemadministration.business.entities.User;
+import com.microservice.systemadministration.business.repositories.ProfileRepository;
 import com.microservice.systemadministration.business.repositories.RoleRepository;
 import com.microservice.systemadministration.business.repositories.UserRepository;
 import com.microservice.systemadministration.business.services.SystemAdministrationService;
@@ -34,6 +35,9 @@ public class SystemAdministrationSecurityService {
     private UserRepository userRepository;
 
     @Autowired
+    private ProfileRepository profileRepository;
+
+    @Autowired
     private RoleRepository roleRepository;
 
     public DaoAuthenticationProvider authenticationProvider() {
@@ -55,7 +59,6 @@ public class SystemAdministrationSecurityService {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
     public Role defaultRolesOnStartUp() {
         try {
             return roleRepository.findRoleByName(SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME)
@@ -74,25 +77,35 @@ public class SystemAdministrationSecurityService {
         return administratorRole;
     }
 
-    public User defaultAdministratorUserProcess(final SystemAdministrationService systemAdministrationService) {
+    public Profile defaultProfileOnStartUp(final SystemAdministrationService systemAdministrationService) {
+        return profileRepository.findProfileByName(SystemAdministrationConstants.DEFAULT_PROFILE_NAME)
+                .orElseGet(() -> createDefaultProfileOnStartUp(systemAdministrationService));
+    }
+
+    protected Profile createDefaultProfileOnStartUp(final SystemAdministrationService systemAdministrationService) {
+        final Profile profile = Profile.builder()
+                .profileName(SystemAdministrationConstants.DEFAULT_PROFILE_NAME)
+                .profileRole(systemAdministrationService.getRoleByName(SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME))
+                .build();
+        profileRepository.saveAndFlush(profile);
+        return profile;
+    }
+
+    public User defaultAdministratorUserOnStartUp(final SystemAdministrationService systemAdministrationService) {
         try {
             return userRepository.findByEmail(SystemAdministrationConstants.DEFAULT_ADMINISTRATOR_USER_EMAIL)
-                    .orElseGet(() -> createDefaultAdministratorUser(systemAdministrationService));
+                    .orElseGet(() -> createDefaultAdministratorUserOnStartUp(systemAdministrationService));
         } catch (final Exception exception) {
             throw new RuntimeException(exception.getMessage());
         }
     }
 
-    protected User createDefaultAdministratorUser(final SystemAdministrationService systemAdministrationService) {
-        final Profile defaultAdminsitratorProfile = Profile.builder()
-                .profileName("Unique Administrator Profile")
-                .profileRole(systemAdministrationService.getRoleByName(SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME))
-                .build();
+    protected User createDefaultAdministratorUserOnStartUp(final SystemAdministrationService systemAdministrationService) {
         final User defaultAdminsitratorUser = User.builder()
                 .userName("admin")
                 .email(SystemAdministrationConstants.DEFAULT_ADMINISTRATOR_USER_EMAIL)
                 .password(passwordEncoder().encode("admin"))
-                .profiles(Set.of(defaultAdminsitratorProfile))
+                .profiles(Set.of(systemAdministrationService.getProfileByName(SystemAdministrationConstants.DEFAULT_PROFILE_NAME)))
                 .build();
         userRepository.saveAndFlush(defaultAdminsitratorUser);
         return defaultAdminsitratorUser;
