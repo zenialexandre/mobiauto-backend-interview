@@ -1,7 +1,9 @@
 package com.microservice.systemadministration.business.mappers;
 
+import com.microservice.systemadministration.business.entities.Profile;
 import com.microservice.systemadministration.business.entities.User;
 import com.microservice.systemadministration.business.services.SystemAdministrationService;
+import com.microservice.systemadministration.business.vo.ProfileVO;
 import com.microservice.systemadministration.business.vo.UserVO;
 import com.microservice.systemadministration.inbound.configuration.security.SystemAdministrationSecurityConfiguration;
 import lombok.NoArgsConstructor;
@@ -20,7 +22,15 @@ public class SystemAdministrationMapper {
                 .userName(userVO.getUserName())
                 .email(userVO.getEmail())
                 .password(systemAdministrationSecurityConfiguration.passwordEncoder().encode(userVO.getPassword()))
-                .roles(Set.of(systemAdministrationService.getRoleByName(userVO.getUserRole().name())))
+                .profiles(userVO.getProfiles())
+                .build();
+    }
+
+    public Profile map(final SystemAdministrationService systemAdministrationService,
+                       final ProfileVO profileVO) {
+        return Profile.builder()
+                .profileName(profileVO.getProfileName())
+                .profileRole(systemAdministrationService.getRoleByName(profileVO.getProfileName()))
                 .build();
     }
 

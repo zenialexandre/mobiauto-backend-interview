@@ -1,6 +1,7 @@
 package com.microservice.storemanagement.inbound.controller;
 
 import com.microservice.storemanagement.business.services.StoreManagementService;
+import com.microservice.storemanagement.business.vo.StoreVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 )
 public class StoreManagementController {
 
-   /* @Autowired
+    @Autowired
     private StoreManagementService storeManagementService;
 
     @GetMapping(
@@ -55,6 +56,6 @@ public class StoreManagementController {
     )
     public ResponseEntity<?> deleteStore(final @PathVariable("storeSequenceId") Integer storeSequenceId) {
         return storeManagementService.deleteStore(storeSequenceId);
-    }*/
+    }
 
 }

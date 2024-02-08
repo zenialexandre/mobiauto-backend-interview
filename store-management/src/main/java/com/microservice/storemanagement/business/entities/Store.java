@@ -1,16 +1,12 @@
 package com.microservice.storemanagement.business.entities;
 
 import com.microservice.opportunitymanagement.business.entities.Opportunity;
+import com.microservice.opportunitymanagement.utils.constants.OpportunityManagementConstants;
 import com.microservice.storemanagement.utils.constants.StoreManagementConstants;
 import com.microservice.systemadministration.business.entities.User;
+import com.microservice.systemadministration.utils.constants.SystemAdministrationConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,9 +38,19 @@ public class Store {
     @Column(name = "store_name")
     private String storeName;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(
+            name = StoreManagementConstants.STORE_SEQUENCE_ID,
+            referencedColumnName = SystemAdministrationConstants.USER_SEQUENCE_ID
+    )
     @Column(name = "store_users")
     private Set<User> storeUsers;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(
+            name = StoreManagementConstants.STORE_SEQUENCE_ID,
+            referencedColumnName = OpportunityManagementConstants.OPPORTUNITY_SEQUENCE_ID
+    )
     @Column(name = "store_opportunities")
     private Set<Opportunity> storeOpportunities;
 
