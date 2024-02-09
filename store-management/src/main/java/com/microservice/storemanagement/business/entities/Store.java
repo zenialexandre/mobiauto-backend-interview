@@ -15,14 +15,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.JoinColumn;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
+@Getter
+@Setter
 @Data
 @Builder
 @NoArgsConstructor
@@ -48,22 +51,14 @@ public class Store {
     private String storeName;
 
     @OneToMany(
-            mappedBy = StoreManagementConstants.STORE_SEQUENCE_ID,
-            fetch = FetchType.EAGER
-    )
-    @JoinColumn(
-            name = StoreManagementConstants.STORE_SEQUENCE_ID,
-            referencedColumnName = SystemAdministrationConstants.USER_SEQUENCE_ID
+            fetch = FetchType.EAGER,
+            mappedBy = "storeSequenceId"
     )
     private Set<User> storeUsers;
 
     @OneToMany(
-            mappedBy = StoreManagementConstants.STORE_SEQUENCE_ID,
-            fetch = FetchType.EAGER
-    )
-    @JoinColumn(
-            name = StoreManagementConstants.STORE_SEQUENCE_ID,
-            referencedColumnName = OpportunityManagementConstants.OPPORTUNITY_SEQUENCE_ID
+            fetch = FetchType.EAGER,
+            mappedBy = "storeSequenceId"
     )
     private Set<Opportunity> storeOpportunities;
 

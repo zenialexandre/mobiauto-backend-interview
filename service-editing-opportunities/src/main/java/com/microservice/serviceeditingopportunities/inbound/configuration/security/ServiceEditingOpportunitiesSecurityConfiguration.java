@@ -1,4 +1,4 @@
-package com.microservice.storemanagement.inbound.configuration.security;
+package com.microservice.serviceeditingopportunities.inbound.configuration.security;
 
 import com.microservice.systemadministration.business.entities.Profile;
 import com.microservice.systemadministration.business.entities.Role;
@@ -25,7 +25,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @NoArgsConstructor
 @Configuration
 @EnableWebSecurity
-public class StoreManagementSecurityConfiguration {
+public class ServiceEditingOpportunitiesSecurityConfiguration {
 
     @Autowired
     private SystemAdministrationService systemAdministrationService;
@@ -38,7 +38,7 @@ public class StoreManagementSecurityConfiguration {
         try {
             httpSecurity.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                         authorizationManagerRequestMatcherRegistry
-                                .requestMatchers("/api/v1/store-management/**")
+                                .requestMatchers("/api/v1/service-editing-opportunities/**")
                                 .hasAuthority(SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME)
                                 .requestMatchers("/login/**").authenticated();
                     }).httpBasic(Customizer.withDefaults())
