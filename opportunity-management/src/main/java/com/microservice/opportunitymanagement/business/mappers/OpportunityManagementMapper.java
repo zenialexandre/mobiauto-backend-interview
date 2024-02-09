@@ -4,6 +4,7 @@ import com.microservice.opportunitymanagement.business.entities.Client;
 import com.microservice.opportunitymanagement.business.entities.Opportunity;
 import com.microservice.opportunitymanagement.business.entities.VehicleOfInterest;
 import com.microservice.opportunitymanagement.business.vo.CreateOpportunityVO;
+import com.microservice.opportunitymanagement.business.vo.enums.StatusEnum;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ public class OpportunityManagementMapper {
 
     public Opportunity map(final CreateOpportunityVO createOpportunityVO) {
         return Opportunity.builder()
-                .status(createOpportunityVO.getStatus().name())
+                .status(StatusEnum.NEW.name())
                 .client(
                         Client.builder()
                                 .clientName(createOpportunityVO.getClientName())

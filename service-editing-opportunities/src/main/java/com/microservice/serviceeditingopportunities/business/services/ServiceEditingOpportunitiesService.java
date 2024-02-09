@@ -14,9 +14,14 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayDeque;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.Set;
 
 @NoArgsConstructor
 @Service
@@ -33,6 +38,8 @@ public class ServiceEditingOpportunitiesService {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    private Deque<Opportunity> opportunitiesToBeAttendedQueue = new ArrayDeque<>();
 
     public ResponseEntity<?> getOpportunityServiceBySequenceId(final Integer opportunityServiceSequenceId) {
         try {
@@ -106,6 +113,23 @@ public class ServiceEditingOpportunitiesService {
         } catch (final Exception exception) {
             return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    // TODO
+    @Scheduled(fixedRate = 10000)
+    public OpportunityService distributeOpportunitiesBetweenAssistants() {
+        populateOpportunitiesToBeAttendedQueue();
+
+
+        if (opportunitiesToBeAttendedQueue.isEmpty()) {
+            return null;
+        }
+        return null;
+    }
+
+    protected void populateOpportunitiesToBeAttendedQueue() {
+        final Set<Opportunity> opportunitiesSet = opportunityRepository.findAllWithoutService();
+        opportunitiesToBeAttendedQueue.addAll(opportunitiesSet);
     }
 
 }

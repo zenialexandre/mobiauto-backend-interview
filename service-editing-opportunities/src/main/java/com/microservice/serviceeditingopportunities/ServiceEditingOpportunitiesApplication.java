@@ -1,5 +1,7 @@
 package com.microservice.serviceeditingopportunities;
 
+import com.microservice.opportunitymanagement.business.entities.Opportunity;
+import com.microservice.opportunitymanagement.business.repositories.OpportunityRepository;
 import com.microservice.serviceeditingopportunities.business.entities.OpportunityService;
 import com.microservice.serviceeditingopportunities.business.mappers.ServiceEditingOpportunitiesMapper;
 import com.microservice.serviceeditingopportunities.business.repositories.OpportunityServiceRepository;
@@ -18,6 +20,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @ComponentScan(basePackageClasses = {
         ServiceEditingOpportunitiesController.class,
@@ -34,12 +37,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 })
 @EntityScan(basePackageClasses = {
         OpportunityService.class,
+        Opportunity.class,
         User.class
 })
 @EnableJpaRepositories(basePackageClasses = {
         OpportunityServiceRepository.class,
+        OpportunityRepository.class,
         UserRepository.class
 })
+@EnableScheduling
 @SpringBootApplication
 public class ServiceEditingOpportunitiesApplication {
 
