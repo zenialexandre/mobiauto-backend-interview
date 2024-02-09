@@ -59,13 +59,15 @@ public class ServiceEditingOpportunitiesController {
         return serviceEditingOpportunitiesService.deleteOpportunityService(opportunityServiceSequenceId);
     }
 
-    @PutMapping(
-            path = "/conclude-opportunity-service/{opportunityServiceSequenceId}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @PutMapping(path = "/conclude-opportunity-service/{opportunityServiceSequenceId}")
     public ResponseEntity<?> concludeOpportunityService(final @PathVariable("opportunityServiceSequenceId") Integer opportunityServiceSequenceId) {
         return serviceEditingOpportunitiesService.concludeOpportunityService(opportunityServiceSequenceId);
+    }
+
+    @PutMapping(path = "/modify-opportunity-service-assistant/{opportunityServiceSequenceId}/{userSequenceId}")
+    public ResponseEntity<?> modifyOpportunityServiceAssistant(final @PathVariable("opportunityServiceSequenceId") Integer opportunityServiceSequenceId,
+                                                               final @PathVariable("userSequenceId") Integer userSequenceId) {
+        return serviceEditingOpportunitiesService.modifyOpportunityServiceAssistant(opportunityServiceSequenceId, userSequenceId);
     }
 
 }

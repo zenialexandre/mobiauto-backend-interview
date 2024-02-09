@@ -94,4 +94,18 @@ public class ServiceEditingOpportunitiesService {
         }
     }
 
+    public ResponseEntity<?> modifyOpportunityServiceAssistant(final Integer opportunityServiceSequenceId, final Integer userSequenceId) {
+        try {
+            final OpportunityService opportunityService = opportunityServiceRepository.findById(opportunityServiceSequenceId).orElseThrow(() ->
+                    new OpportunityServiceNotFoundException(opportunityServiceSequenceId)
+            );
+            opportunityService.setUserSequenceId(userSequenceId);
+            opportunityService.setOpportunityAssignmentDate(LocalDateTime.now());
+            opportunityServiceRepository.saveAndFlush(opportunityService);
+            return ResponseEntity.ok(HttpStatus.OK);
+        } catch (final Exception exception) {
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
