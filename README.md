@@ -23,7 +23,8 @@ Build automation tool: Gradle with Groovy plugin. <br>
 The application is divided between microservices with different responsabilities.
 
 #### system-administration
-Responsible for the main services and commands above the users, profiles and roles of the system.
+Responsible for the main services and commands above the users, profiles and roles of the system. <br>
+Responsible for the common methods above the security of the system.
 
 #### store-management
 Responsible for the main services and commands above the stores of the system.
