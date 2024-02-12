@@ -49,22 +49,22 @@ Responsible for the main services and commands above the attendance of the oppor
 The dependencies to run this application are as follows:
 
 ```gradle
-  dependencies {
-		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-		implementation 'org.springframework.boot:spring-boot-starter-web'
-		implementation 'org.springframework.boot:spring-boot-starter-validation'
-		implementation 'org.hibernate.validator:hibernate-validator'
-		implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
-		implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-		implementation "org.springframework.boot:spring-boot-starter-security"
-		implementation 'com.google.guava:guava:30.1-jre'
-		testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
-		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-		compileOnly 'org.projectlombok:lombok'
-		developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
-		runtimeOnly 'org.postgresql:postgresql'
-		annotationProcessor 'org.projectlombok:lombok'
-	}
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.hibernate.validator:hibernate-validator'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation "org.springframework.boot:spring-boot-starter-security"
+	implementation 'com.google.guava:guava:30.1-jre'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+}
 ```
 
 ### Environment Variables
