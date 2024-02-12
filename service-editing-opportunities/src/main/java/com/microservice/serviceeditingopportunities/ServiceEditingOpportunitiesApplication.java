@@ -8,6 +8,7 @@ import com.microservice.serviceeditingopportunities.business.repositories.Opport
 import com.microservice.serviceeditingopportunities.business.services.ServiceEditingOpportunitiesService;
 import com.microservice.serviceeditingopportunities.inbound.configuration.security.ServiceEditingOpportunitiesSecurityConfiguration;
 import com.microservice.serviceeditingopportunities.inbound.controller.ServiceEditingOpportunitiesController;
+import com.microservice.storemanagement.business.entities.Store;
 import com.microservice.systemadministration.business.entities.User;
 import com.microservice.systemadministration.business.mappers.SystemAdministrationMapper;
 import com.microservice.systemadministration.business.repositories.UserRepository;
@@ -38,6 +39,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EntityScan(basePackageClasses = {
         OpportunityService.class,
         Opportunity.class,
+        Store.class,
         User.class
 })
 @EnableJpaRepositories(basePackageClasses = {

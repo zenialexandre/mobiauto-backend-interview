@@ -19,6 +19,10 @@ public class ProfileVO {
     @NotNull(message = SystemCommonsConstants.NOT_NULLABLE_FIELD)
     private String profileName;
 
+    @JsonProperty("userSequenceId")
+    @NotNull(message = SystemCommonsConstants.NOT_NULLABLE_FIELD)
+    private Integer userSequenceId;
+
     @JsonProperty("profileRole")
     @NotNull(message = SystemCommonsConstants.NOT_NULLABLE_FIELD)
     @Enumerated(EnumType.STRING)

@@ -9,14 +9,11 @@ import com.microservice.systemadministration.inbound.configuration.security.Syst
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
-
 @NoArgsConstructor
 @Component
 public class SystemAdministrationMapper {
 
-    public User map(final SystemAdministrationService systemAdministrationService,
-                    final SystemAdministrationSecurityConfiguration systemAdministrationSecurityConfiguration,
+    public User map(final SystemAdministrationSecurityConfiguration systemAdministrationSecurityConfiguration,
                     final UserVO userVO) {
         return User.builder()
                 .userName(userVO.getUserName())
@@ -30,6 +27,7 @@ public class SystemAdministrationMapper {
                        final ProfileVO profileVO) {
         return Profile.builder()
                 .profileName(profileVO.getProfileName())
+                .userSequenceId(profileVO.getUserSequenceId())
                 .profileRole(systemAdministrationService.getRoleByName(profileVO.getProfileName()))
                 .build();
     }

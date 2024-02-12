@@ -21,11 +21,9 @@ public class StoreVO {
     private String storeName;
 
     @JsonProperty("storeUsers")
-    @NotNull(message = SystemCommonsConstants.NOT_NULLABLE_FIELD)
     private Set<User> storeUsers;
 
     @JsonProperty("storeOpportunities")
-    @NotNull(message = SystemCommonsConstants.NOT_NULLABLE_FIELD)
     private Set<Opportunity> storeOpportunities;
 
 }

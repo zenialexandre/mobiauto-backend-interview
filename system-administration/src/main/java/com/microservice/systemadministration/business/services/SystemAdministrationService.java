@@ -14,11 +14,11 @@ import com.microservice.systemadministration.inbound.configuration.security.Syst
 import com.microservice.systemadministration.utils.exception.ProfileNotFoundByNameException;
 import com.microservice.systemadministration.utils.exception.ProfileNotFoundException;
 import com.microservice.systemadministration.utils.exception.RoleNotFoundException;
+import com.microservice.systemadministration.utils.exception.UserNotFoundException;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @NoArgsConstructor
@@ -43,7 +43,7 @@ public class SystemAdministrationService {
     public ResponseEntity<?> getUserBySequenceId(final Integer userSequenceId) {
         try {
             final User user = userRepository.findById(userSequenceId).orElseThrow(() ->
-                    new UsernameNotFoundException("User not found by the sequence provided.")
+                    new UserNotFoundException(userSequenceId)
             );
             return new ResponseEntity<>(objectMapper.writeValueAsString(user), HttpStatus.OK);
         } catch (final Exception exception) {
@@ -65,7 +65,8 @@ public class SystemAdministrationService {
     public ResponseEntity<?> createUser(final SystemAdministrationSecurityConfiguration systemAdministrationSecurityConfiguration,
                                         final UserVO userVO) {
         try {
-            final User user = systemAdministrationMapper.map(this, systemAdministrationSecurityConfiguration, userVO);
+            final User user = systemAdministrationMapper.map(systemAdministrationSecurityConfiguration, userVO);
+
             userRepository.saveAndFlush(user);
             ResponseEntity.ok(HttpStatus.CREATED);
             return ResponseEntity.ok(user);
@@ -77,7 +78,14 @@ public class SystemAdministrationService {
     public ResponseEntity<?> createProfile(final ProfileVO profileVO) {
         try {
             final Profile profile = systemAdministrationMapper.map(this, profileVO);
+            final Integer userSequenceId = profile.getUserSequenceId();
+            final User user = userRepository.findById(userSequenceId).orElseThrow(() ->
+                    new UserNotFoundException(userSequenceId)
+            );
+
             profileRepository.saveAndFlush(profile);
+            user.getProfiles().add(profile);
+            userRepository.saveAndFlush(user);
             ResponseEntity.ok(HttpStatus.CREATED);
             return ResponseEntity.ok(profile);
         } catch (final Exception exception) {
@@ -88,8 +96,9 @@ public class SystemAdministrationService {
     public ResponseEntity<?> deleteUser(final Integer userSequenceId) {
         try {
             final User user = userRepository.findById(userSequenceId).orElseThrow(() ->
-                    new UsernameNotFoundException("User not found by the sequence provided.")
+                    new UserNotFoundException(userSequenceId)
             );
+
             userRepository.delete(user);
             return ResponseEntity.ok(HttpStatus.OK);
         } catch (final Exception exception) {
@@ -102,6 +111,7 @@ public class SystemAdministrationService {
             final Profile profile = profileRepository.findById(profileSequenceId).orElseThrow(() ->
                     new ProfileNotFoundException(profileSequenceId)
             );
+
             profileRepository.delete(profile);
             return ResponseEntity.ok(HttpStatus.OK);
         } catch (final Exception exception) {

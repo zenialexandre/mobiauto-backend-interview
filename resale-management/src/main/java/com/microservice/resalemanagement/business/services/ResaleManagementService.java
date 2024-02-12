@@ -39,6 +39,7 @@ public class ResaleManagementService {
     public ResponseEntity<?> createResale(final ResaleVO resaleVO) {
         try {
             final Resale resale = resaleManagementMapper.map(resaleVO);
+
             resaleRepository.saveAndFlush(resale);
             ResponseEntity.ok(HttpStatus.CREATED);
             return ResponseEntity.ok(resale);
@@ -52,6 +53,7 @@ public class ResaleManagementService {
             final Resale resale = resaleRepository.findById(resaleSequenceId).orElseThrow(() ->
                     new ResaleNotFoundException(resaleSequenceId)
             );
+
             resaleRepository.delete(resale);
             return ResponseEntity.ok(HttpStatus.OK);
         } catch (final Exception exception) {

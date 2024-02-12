@@ -39,6 +39,7 @@ public class OpportunityManagementService {
     public ResponseEntity<?> createOpportunity(final CreateOpportunityVO createOpportunityVO) {
         try {
             final Opportunity opportunity = opportunityManagementMapper.map(createOpportunityVO);
+
             opportunityRepository.saveAndFlush(opportunity);
             ResponseEntity.ok(HttpStatus.CREATED);
             return ResponseEntity.ok(opportunity);
@@ -52,6 +53,7 @@ public class OpportunityManagementService {
             final Opportunity opportunity = opportunityRepository.findById(opportunitySequenceId).orElseThrow(() ->
                     new OpportunityNotFoundException(opportunitySequenceId)
             );
+
             opportunityRepository.delete(opportunity);
             return ResponseEntity.ok(HttpStatus.OK);
         } catch (final Exception exception) {

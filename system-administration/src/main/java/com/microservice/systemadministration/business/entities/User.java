@@ -9,10 +9,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.JoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
@@ -57,21 +56,17 @@ public class User {
     @Schema(description = "The password of the user.")
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_table_profile_junction",
-            joinColumns = {
-                    @JoinColumn(
-                            name = SystemAdministrationConstants.USER_SEQUENCE_ID
-                    )
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(
-                            name = SystemAdministrationConstants.PROFILE_SEQUENCE_ID
-                    )
-            }
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            mappedBy = "userSequenceId"
     )
     private Set<Profile> profiles;
+
+    @Column(name = "last_opportunity_received")
+    private LocalDateTime lastOpportunityReceived;
+
+    @Column(name = "opportunities_attended_number")
+    private Integer opportunitiesAttendedNumber;
 
     @Column(name = "store_sequence_id")
     private Integer storeSequenceId;

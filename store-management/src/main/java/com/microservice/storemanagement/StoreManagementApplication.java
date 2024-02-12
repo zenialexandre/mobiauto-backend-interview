@@ -1,6 +1,7 @@
 package com.microservice.storemanagement;
 
 import com.microservice.opportunitymanagement.business.entities.Opportunity;
+import com.microservice.opportunitymanagement.business.repositories.OpportunityRepository;
 import com.microservice.storemanagement.business.entities.Store;
 import com.microservice.storemanagement.business.mappers.StoreManagementMapper;
 import com.microservice.storemanagement.business.repositories.StoreRepository;
@@ -40,6 +41,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 })
 @EnableJpaRepositories(basePackageClasses = {
         StoreRepository.class,
+        OpportunityRepository.class,
         UserRepository.class
 })
 @SpringBootApplication

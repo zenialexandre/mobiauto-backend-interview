@@ -14,4 +14,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(" select u from User u where u.email = :email ")
     Optional<User> findByEmail(final @Param("email") String email);
 
+    @Query(" select u.opportunitiesAttendedNumber from User u where u.userSequenceId = :userSequenceId ")
+    Integer findNumberOfOpportunitiesAttended(final @Param("userSequenceId") Integer userSequenceId);
+
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,6 +57,22 @@ public class StoreManagementController {
     )
     public ResponseEntity<?> deleteStore(final @PathVariable("storeSequenceId") Integer storeSequenceId) {
         return storeManagementService.deleteStore(storeSequenceId);
+    }
+
+    @PutMapping(
+            path = "/add-user/{storeSequenceId}/{userSequenceId}"
+    )
+    public ResponseEntity<?> addUserToStore(final @PathVariable("storeSequenceId") Integer storeSequenceId,
+                                                   final @PathVariable("userSequenceId") Integer userSequenceId) {
+        return storeManagementService.addUserToStore(storeSequenceId, userSequenceId);
+    }
+
+    @PutMapping(
+            path = "/add-opportunity/{storeSequenceId}/{opportunitySequenceId}"
+    )
+    public ResponseEntity<?> addOpportunityToStore(final @PathVariable("storeSequenceId") Integer storeSequenceId,
+                                                   final @PathVariable("opportunitySequenceId") Integer opportunitySequenceId) {
+        return storeManagementService.addOpportunityToStore(storeSequenceId, opportunitySequenceId);
     }
 
 }

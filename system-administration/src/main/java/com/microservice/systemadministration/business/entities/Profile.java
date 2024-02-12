@@ -2,8 +2,16 @@ package com.microservice.systemadministration.business.entities;
 
 import com.microservice.systemadministration.utils.constants.SystemAdministrationConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.*;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.FetchType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,6 +44,9 @@ public class Profile {
 
     @Column(name = "profile_name")
     private String profileName;
+
+    @Column(name = "user_sequence_id")
+    private Integer userSequenceId;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(
