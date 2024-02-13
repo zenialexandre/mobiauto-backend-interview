@@ -28,6 +28,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 
 @NoArgsConstructor
@@ -67,7 +68,7 @@ public class ServiceEditingOpportunitiesService {
             final OpportunityService opportunityService = serviceEditingOpportunitiesMapper.map(opportunityServiceVO);
             final Integer opportunitySequenceId = opportunityService.getOpportunitySequenceId();
             final Integer userSequenceId = opportunityService.getUserSequenceId();
-            final Integer opportunitiesAttendedNumber = userRepository.findNumberOfOpportunitiesAttended(userSequenceId);
+            final Integer opportunitiesAttendedNumber = userRepository.findNumberOfOpportunitiesAttended(userSequenceId).orElse(0);
             final Opportunity opportunity = opportunityRepository.findById(opportunitySequenceId).orElseThrow(() ->
                     new OpportunityNotFoundException(opportunitySequenceId)
             );
@@ -129,7 +130,7 @@ public class ServiceEditingOpportunitiesService {
             final User user = userRepository.findById(userSequenceId).orElseThrow(() ->
                     new UserNotFoundException(userSequenceId)
             );
-            final Integer opportunitiesAttendedNumber = userRepository.findNumberOfOpportunitiesAttended(userSequenceId);
+            final Integer opportunitiesAttendedNumber = userRepository.findNumberOfOpportunitiesAttended(userSequenceId).orElse(0);
 
             opportunityService.setUserSequenceId(userSequenceId);
             opportunityService.setOpportunityAssignmentDate(LocalDateTime.now());
@@ -144,7 +145,7 @@ public class ServiceEditingOpportunitiesService {
     }
 
     @Scheduled(
-            fixedRate = 15,
+            fixedRate = 30,
             timeUnit = TimeUnit.SECONDS
 
     )
@@ -188,18 +189,34 @@ public class ServiceEditingOpportunitiesService {
         final Set<User> storeAssistantsSet = (Set<User>) validOpportunityList.get(1);
 
         if (storeAssistantsSet.size() > 1) {
-            final User user = storeAssistantsSet.stream()
-                    .min(Comparator.comparing(User::getLastOpportunityReceived).thenComparing(User::getOpportunitiesAttendedNumber)).get();
-            return finalizeDistributeOpportunitiesBetweenAssistants(user, opportunity);
+            final Set<User> userWithoutLastOpportunityReceivedSet = validateLastOpportunityReceivedField(storeAssistantsSet);
+
+            if (userWithoutLastOpportunityReceivedSet.isEmpty()) {
+                final User user = storeAssistantsSet.stream()
+                        .min(Comparator.comparing(User::getLastOpportunityReceived).thenComparing(User::getOpportunitiesAttendedNumber)).get();
+                return finalizeDistributeOpportunitiesBetweenAssistants(user, opportunity);
+            }
+            return finalizeDistributeOpportunitiesBetweenAssistants(userWithoutLastOpportunityReceivedSet.stream().findFirst().get(), opportunity);
         } else if (storeAssistantsSet.size() == 1) {
             return finalizeDistributeOpportunitiesBetweenAssistants(storeAssistantsSet.stream().findFirst().get(), opportunity);
         }
         return null;
     }
 
+    protected Set<User> validateLastOpportunityReceivedField(final Set<User> storeAssistantsSet) {
+        final Set<User> userSet = new HashSet<>();
+
+        storeAssistantsSet.forEach(user -> {
+            if (Objects.isNull(user.getLastOpportunityReceived())) {
+                userSet.add(user);
+            }
+        });
+        return userSet;
+    }
+
     protected OpportunityService finalizeDistributeOpportunitiesBetweenAssistants(final User user, final Opportunity opportunity) {
         final Integer userSequenceId = user.getUserSequenceId();
-        final Integer opportunitiesAttendedNumber = userRepository.findNumberOfOpportunitiesAttended(userSequenceId);
+        final Integer opportunitiesAttendedNumber = userRepository.findNumberOfOpportunitiesAttended(userSequenceId).orElse(0);
         final OpportunityService opportunityService = OpportunityService.builder()
                 .opportunitySequenceId(opportunity.getOpportunitySequenceId())
                 .userSequenceId(userSequenceId)

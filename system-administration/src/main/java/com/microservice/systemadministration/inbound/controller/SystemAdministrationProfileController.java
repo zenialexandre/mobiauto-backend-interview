@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,6 +34,7 @@ public class SystemAdministrationProfileController {
     private SystemAdministrationService systemAdministrationService;
 
     @Operation(summary = "Get Profile.", description = "Gets a Profile record by id.")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'OWNER')")
     @GetMapping(
             path = "/{profileSequenceId}",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -43,6 +45,7 @@ public class SystemAdministrationProfileController {
     }
 
     @Operation(summary = "Create Profile.", description = "Creates a new Profile record.")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'OWNER')")
     @PostMapping(
             path = "/create-profile",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -54,6 +57,7 @@ public class SystemAdministrationProfileController {
     }
 
     @Operation(summary = "Delete Profile.", description = "Deletes a Profile by sequence id.")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'OWNER')")
     @DeleteMapping(
             path = "/delete-profile/{profileSequenceId}",
             consumes = MediaType.APPLICATION_JSON_VALUE

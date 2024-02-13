@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,7 @@ public class ResaleManagementController {
     private ResaleManagementService resaleManagementService;
 
     @Operation(summary = "Get Resale sequence.", description = "Gets a Resale by sequence id.")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'OWNER', 'MANAGER')")
     @GetMapping(
             path = "/{resaleSequenceId}",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -43,6 +45,7 @@ public class ResaleManagementController {
     }
 
     @Operation(summary = "Create Resale.", description = "Creates a new Resale.")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'OWNER', 'MANAGER')")
     @PostMapping(
             path = "/create-resale",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -54,6 +57,7 @@ public class ResaleManagementController {
     }
 
     @Operation(summary = "Delete Resale.", description = "Deletes a Resale record by id.")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'OWNER', 'MANAGER')")
     @DeleteMapping(
             path = "/delete-resale/{resaleSequenceId}",
             consumes = MediaType.APPLICATION_JSON_VALUE

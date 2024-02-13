@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,7 @@ public class OpportunityManagementController {
     private OpportunityManagementService opportunityManagementService;
 
     @Operation(summary = "Get Opportunity.", description = "Gets a Opportunity record by sequence id.")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'OWNER', 'MANAGER')")
     @GetMapping(
             path = "/{opportunitySequenceId}",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -43,6 +45,7 @@ public class OpportunityManagementController {
     }
 
     @Operation(summary = "Create Opportunity.", description = "Creates a new Opportunity record.")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'OWNER', 'MANAGER')")
     @PostMapping(
             path = "/create-opportunity",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -54,6 +57,7 @@ public class OpportunityManagementController {
     }
 
     @Operation(summary = "Delete Opportunity.", description = "Deletes a Opportunity record by sequence id.")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'OWNER', 'MANAGER')")
     @DeleteMapping(
             path = "/delete-opportunity/{opportunitySequenceId}",
             consumes = MediaType.APPLICATION_JSON_VALUE

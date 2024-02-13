@@ -20,7 +20,7 @@ public interface OpportunityServiceRepository extends JpaRepository<OpportunityS
             + " where  s.storeSequenceId = :storeSequenceId "
             + " and    u.storeSequenceId = s.storeSequenceId "
             + " and    p.userSequenceId  = u.userSequenceId "
-            + " and    p.profileRole     = r "
+            + " and    p.roleSequenceId  = r.roleSequenceId "
             + " and    r.roleName        = 'ASSISTANT' "
     )
     Set<User> findAssistantsFromStore(final @Param("storeSequenceId") Integer storeSequenceId);

@@ -2,13 +2,10 @@ package com.microservice.opportunitymanagement.business.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.microservice.opportunitymanagement.business.vo.enums.StatusEnum;
+import com.microservice.opportunitymanagement.utils.constants.OpportunityManagementConstants;
 import com.microservice.systemcommons.utils.constants.SystemCommonsConstants;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,9 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class CreateOpportunityVO {
 
     @JsonProperty("status")
-    @NotNull(message = SystemCommonsConstants.NOT_NULLABLE_FIELD)
-    @Enumerated(EnumType.STRING)
-    private StatusEnum status;
+    private String status;
 
     @JsonProperty("clientName")
     @NotNull(message = SystemCommonsConstants.NOT_NULLABLE_FIELD)
@@ -52,8 +47,7 @@ public class CreateOpportunityVO {
 
     @JsonProperty("vehicleModelDate")
     @NotNull(message = SystemCommonsConstants.NOT_NULLABLE_FIELD)
-    @Past
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = OpportunityManagementConstants.DATE_FORMAT)
     private String vehicleModelDate;
 
 }

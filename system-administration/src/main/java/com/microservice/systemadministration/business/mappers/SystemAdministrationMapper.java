@@ -20,6 +20,7 @@ public class SystemAdministrationMapper {
                 .email(userVO.getEmail())
                 .password(systemAdministrationSecurityConfiguration.passwordEncoder().encode(userVO.getPassword()))
                 .profiles(userVO.getProfiles())
+                .opportunitiesAttendedNumber(0)
                 .build();
     }
 

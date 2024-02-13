@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ public class StoreManagementController {
     private StoreManagementService storeManagementService;
 
     @Operation(summary = "Get Store.", description = "Gets a Store record by sequence id.")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'OWNER', 'MANAGER')")
     @GetMapping(
             path = "/{storeSequenceId}",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -44,6 +46,7 @@ public class StoreManagementController {
     }
 
     @Operation(summary = "Create Store.", description = "Creates a new Store record.")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'OWNER', 'MANAGER')")
     @PostMapping(
             path = "/create-store",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -55,6 +58,7 @@ public class StoreManagementController {
     }
 
     @Operation(summary = "Delete Store.", description = "Deletes a Store record by sequence id.")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'OWNER', 'MANAGER')")
     @DeleteMapping(
             path = "/delete-store/{storeSequenceId}",
             consumes = MediaType.APPLICATION_JSON_VALUE
@@ -64,6 +68,7 @@ public class StoreManagementController {
     }
 
     @Operation(summary = "Add User to Store.", description = "Adds a User to the Store record.")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'OWNER', 'MANAGER')")
     @PutMapping(
             path = "/add-user/{storeSequenceId}/{userSequenceId}"
     )
@@ -73,6 +78,7 @@ public class StoreManagementController {
     }
 
     @Operation(summary = "Add Opportunity to Store.", description = "Adds a Opportunity to the Store record.")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'OWNER', 'MANAGER')")
     @PutMapping(
             path = "/add-opportunity/{storeSequenceId}/{opportunitySequenceId}"
     )

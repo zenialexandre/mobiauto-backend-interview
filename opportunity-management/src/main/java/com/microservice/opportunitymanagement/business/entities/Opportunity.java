@@ -10,6 +10,8 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Embedded;
+import jakarta.persistence.AttributeOverrides;
+import jakarta.persistence.AttributeOverride;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,9 +46,20 @@ public class Opportunity {
     private String status;
 
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "clientName", column = @Column(name = "client_name")),
+            @AttributeOverride(name = "clientEmail", column = @Column(name = "client_email")),
+            @AttributeOverride(name = "clientTelephone", column = @Column(name = "client_telephone"))
+    })
     private Client client;
 
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "vehicleBrand", column = @Column(name = "vehicle_brand")),
+            @AttributeOverride(name = "vehicleModel", column = @Column(name = "vehicle_model")),
+            @AttributeOverride(name = "vehicleVersion", column = @Column(name = "vehicle_version")),
+            @AttributeOverride(name = "vehicleModelDate", column = @Column(name = "vehicle_model_date"))
+    })
     private VehicleOfInterest vehicleOfInterest;
 
     @Column(name = "store_sequence_id")

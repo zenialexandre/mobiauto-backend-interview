@@ -2,11 +2,16 @@ package com.microservice.opportunitymanagement.business.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.Past;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Embeddable
 public class VehicleOfInterest {
 
@@ -20,6 +25,7 @@ public class VehicleOfInterest {
     private String vehicleVersion;
 
     @Column(name = "vehicle_model_date")
-    private LocalDateTime vehicleModelDate;
+    @Past
+    private LocalDate vehicleModelDate;
 
 }
