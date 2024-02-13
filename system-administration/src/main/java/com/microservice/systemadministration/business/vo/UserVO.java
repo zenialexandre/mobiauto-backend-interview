@@ -3,10 +3,7 @@ package com.microservice.systemadministration.business.vo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.microservice.systemadministration.business.entities.Profile;
-import com.microservice.systemadministration.business.vo.enums.UserRoleEnum;
 import com.microservice.systemcommons.utils.constants.SystemCommonsConstants;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -43,7 +40,6 @@ public class UserVO {
     private String password;
 
     @JsonProperty("profiles")
-    @NotNull(message = SystemCommonsConstants.NOT_NULLABLE_FIELD)
     private Set<Profile> profiles;
 
 }

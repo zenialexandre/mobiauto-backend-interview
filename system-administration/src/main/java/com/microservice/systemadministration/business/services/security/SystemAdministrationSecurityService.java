@@ -11,7 +11,6 @@ import com.microservice.systemadministration.business.services.SystemAdministrat
 import com.microservice.systemadministration.utils.constants.SystemAdministrationConstants;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
@@ -83,9 +82,11 @@ public class SystemAdministrationSecurityService {
     }
 
     protected Profile createDefaultProfileOnStartUp(final SystemAdministrationService systemAdministrationService) {
+        final Role role = systemAdministrationService.getRoleByName(SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME);
         final Profile profile = Profile.builder()
                 .profileName(SystemAdministrationConstants.DEFAULT_PROFILE_NAME)
-                .profileRole(systemAdministrationService.getRoleByName(SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME))
+                .roleSequenceId(role.getRoleSequenceId())
+                .profileRole(role)
                 .build();
         profileRepository.saveAndFlush(profile);
         return profile;
@@ -101,12 +102,18 @@ public class SystemAdministrationSecurityService {
     }
 
     protected User createDefaultAdministratorUserOnStartUp(final SystemAdministrationService systemAdministrationService) {
+        final Profile defaultProfile = systemAdministrationService.getProfileByName(SystemAdministrationConstants.DEFAULT_PROFILE_NAME);
         final User defaultAdminsitratorUser = User.builder()
                 .userName("admin")
                 .email(SystemAdministrationConstants.DEFAULT_ADMINISTRATOR_USER_EMAIL)
                 .password(passwordEncoder().encode("admin"))
-                .profiles(Set.of(systemAdministrationService.getProfileByName(SystemAdministrationConstants.DEFAULT_PROFILE_NAME)))
+                .profiles(null)
                 .build();
+        userRepository.saveAndFlush(defaultAdminsitratorUser);
+
+        defaultProfile.setUserSequenceId(defaultAdminsitratorUser.getUserSequenceId());
+        defaultAdminsitratorUser.setProfiles(Set.of(defaultProfile));
+        profileRepository.saveAndFlush(defaultProfile);
         userRepository.saveAndFlush(defaultAdminsitratorUser);
         return defaultAdminsitratorUser;
     }

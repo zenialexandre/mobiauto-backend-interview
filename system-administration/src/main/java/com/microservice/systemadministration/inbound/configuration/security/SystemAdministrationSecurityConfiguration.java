@@ -16,6 +16,7 @@ import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -28,6 +29,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalAuthentication
+@EnableMethodSecurity
 public class SystemAdministrationSecurityConfiguration {
 
     @Autowired
@@ -44,7 +46,10 @@ public class SystemAdministrationSecurityConfiguration {
         try {
             httpSecurity.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                 authorizationManagerRequestMatcherRegistry
-                        .requestMatchers("/api/v1/system-administration/**")
+                        .requestMatchers(
+                                "/api/v1/system-administration/user/**",
+                                "/api/v1/system-administration/profile/**"
+                        )
                         .hasAnyAuthority(
                                 SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME,
                                 SystemAdministrationConstants.OWNER_ROLE_NAME

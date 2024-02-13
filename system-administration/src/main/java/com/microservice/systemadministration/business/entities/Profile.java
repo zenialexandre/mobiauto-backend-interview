@@ -48,6 +48,9 @@ public class Profile {
     @Column(name = "user_sequence_id")
     private Integer userSequenceId;
 
+    @Column(name = "role_sequence_id")
+    private Integer roleSequenceId;
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = SystemAdministrationConstants.PROFILE_SEQUENCE_ID,

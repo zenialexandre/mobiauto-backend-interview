@@ -1,9 +1,13 @@
 package com.microservice.systemadministration.business.services.security;
 
 import com.microservice.systemadministration.business.entities.Profile;
+import com.microservice.systemadministration.business.entities.Role;
 import com.microservice.systemadministration.business.entities.User;
+import com.microservice.systemadministration.business.repositories.RoleRepository;
+import com.microservice.systemadministration.utils.exception.RoleNotFoundByIdException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +21,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class SystemAdministrationUserDetails implements UserDetails {
 
+    private RoleRepository roleRepository;
     private User user;
 
     @Override
@@ -25,7 +30,11 @@ public class SystemAdministrationUserDetails implements UserDetails {
         final List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
         for (final Profile profile : profiles) {
-            authorities.add(new SimpleGrantedAuthority(profile.getProfileRole().getRoleName()));
+            final Integer roleSequenceId = profile.getRoleSequenceId();
+            final Role role = roleRepository.findById(roleSequenceId).orElseThrow(() ->
+                    new RoleNotFoundByIdException(roleSequenceId)
+            );
+            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         }
         return authorities;
     }

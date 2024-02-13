@@ -78,11 +78,16 @@ public class SystemAdministrationService {
     public ResponseEntity<?> createProfile(final ProfileVO profileVO) {
         try {
             final Profile profile = systemAdministrationMapper.map(this, profileVO);
+            final String profileRoleName = profile.getProfileRole().getRoleName();
+            final Role role = roleRepository.findRoleByName(profileRoleName).orElseThrow(() ->
+                    new RoleNotFoundException(profileRoleName)
+            );
             final Integer userSequenceId = profile.getUserSequenceId();
             final User user = userRepository.findById(userSequenceId).orElseThrow(() ->
                     new UserNotFoundException(userSequenceId)
             );
 
+            profile.setRoleSequenceId(role.getRoleSequenceId());
             profileRepository.saveAndFlush(profile);
             user.getProfiles().add(profile);
             userRepository.saveAndFlush(user);

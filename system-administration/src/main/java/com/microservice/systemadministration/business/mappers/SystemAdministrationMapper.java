@@ -28,7 +28,7 @@ public class SystemAdministrationMapper {
         return Profile.builder()
                 .profileName(profileVO.getProfileName())
                 .userSequenceId(profileVO.getUserSequenceId())
-                .profileRole(systemAdministrationService.getRoleByName(profileVO.getProfileName()))
+                .profileRole(systemAdministrationService.getRoleByName(profileVO.getProfileRole().name()))
                 .build();
     }
 
