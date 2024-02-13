@@ -47,12 +47,12 @@ Responsible for the main services and commands above the attendance of the oppor
 ## Configuration and Environment Variables
 
 ### Default User on First Run
-When the application is runned the first time, the system Roles, a default Profile and a default User are created. <br>
+When the application is runned the first time, the system Roles, a default Profile and a default User are created. <br> <br>
 The default User credentials are: <br>
 
 <strong>
 Email: admin@gmail.com <br>
-Password: admin <br>
+Password: admin <br> <br>
 </strong>
 
 This default User has a Profile with the ADMINISTRATOR Role, being able to do every operation inside the system.
