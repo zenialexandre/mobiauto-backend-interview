@@ -2,6 +2,7 @@ package com.microservice.systemadministration.inbound.controller;
 
 import com.microservice.systemadministration.business.services.SystemAdministrationService;
 import com.microservice.systemadministration.business.vo.ProfileVO;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,7 @@ public class SystemAdministrationProfileController {
     @Autowired
     private SystemAdministrationService systemAdministrationService;
 
+    @Operation(summary = "Get Profile.", description = "Gets a Profile record by id.")
     @GetMapping(
             path = "/{profileSequenceId}",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -40,8 +42,9 @@ public class SystemAdministrationProfileController {
         return systemAdministrationService.getProfileBySequenceId(profileSequenceId);
     }
 
+    @Operation(summary = "Create Profile.", description = "Creates a new Profile record.")
     @PostMapping(
-            path = "/create-user",
+            path = "/create-profile",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -50,8 +53,9 @@ public class SystemAdministrationProfileController {
         return systemAdministrationService.createProfile(profileVO);
     }
 
+    @Operation(summary = "Delete Profile.", description = "Deletes a Profile by sequence id.")
     @DeleteMapping(
-            path = "/delete-user/{profileSequenceId}",
+            path = "/delete-profile/{profileSequenceId}",
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<?> deleteProfile(final @PathVariable("profileSequenceId") Integer profileSequenceId) {

@@ -1,7 +1,6 @@
 package com.microservice.storemanagement.business.mappers;
 
 import com.microservice.storemanagement.business.entities.Store;
-import com.microservice.storemanagement.business.services.StoreManagementService;
 import com.microservice.storemanagement.business.vo.StoreVO;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;

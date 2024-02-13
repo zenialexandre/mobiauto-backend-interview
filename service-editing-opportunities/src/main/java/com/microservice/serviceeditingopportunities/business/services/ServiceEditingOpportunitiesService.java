@@ -28,6 +28,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.concurrent.TimeUnit;
 
 @NoArgsConstructor
 @Service
@@ -142,7 +143,11 @@ public class ServiceEditingOpportunitiesService {
         }
     }
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(
+            fixedRate = 15,
+            timeUnit = TimeUnit.SECONDS
+
+    )
     public OpportunityService distributeOpportunitiesBetweenAssistants() {
         populateOpportunitiesToBeAttendedQueue();
         if (opportunitiesToBeAttendedQueue.isEmpty()) return null;
@@ -178,6 +183,8 @@ public class ServiceEditingOpportunitiesService {
 
     protected OpportunityService setOpportunityAssistant(final List<Object> validOpportunityList) {
         final Opportunity opportunity = (Opportunity) validOpportunityList.getFirst();
+
+        @SuppressWarnings("unchecked")
         final Set<User> storeAssistantsSet = (Set<User>) validOpportunityList.get(1);
 
         if (storeAssistantsSet.size() > 1) {

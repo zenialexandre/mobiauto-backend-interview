@@ -3,6 +3,7 @@ package com.microservice.systemadministration.inbound.controller;
 import com.microservice.systemadministration.business.services.SystemAdministrationService;
 import com.microservice.systemadministration.business.vo.UserVO;
 import com.microservice.systemadministration.inbound.configuration.security.SystemAdministrationSecurityConfiguration;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,6 +37,8 @@ public class SystemAdministrationUserController {
     @Autowired
     private SystemAdministrationService systemAdministrationService;
 
+    @Operation(summary = "Get User.", description = "Gets a User record by sequence id.")
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     @GetMapping(
             path = "/{userSequenceId}",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -44,6 +48,8 @@ public class SystemAdministrationUserController {
         return systemAdministrationService.getUserBySequenceId(userSequenceId);
     }
 
+    @Operation(summary = "Create User.", description = "Creates a new User record.")
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     @PostMapping(
             path = "/create-user",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -54,6 +60,8 @@ public class SystemAdministrationUserController {
         return systemAdministrationService.createUser(systemAdministrationSecurityConfiguration, userVO);
     }
 
+    @Operation(summary = "Delete User.", description = "Deletes a User record by sequence id.")
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     @DeleteMapping(
             path = "/delete-user/{userSequenceId}",
             consumes = MediaType.APPLICATION_JSON_VALUE

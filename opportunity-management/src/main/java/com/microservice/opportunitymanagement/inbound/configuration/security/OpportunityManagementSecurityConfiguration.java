@@ -39,7 +39,11 @@ public class OpportunityManagementSecurityConfiguration {
             httpSecurity.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                         authorizationManagerRequestMatcherRegistry
                                 .requestMatchers("/api/v1/opportunity-management/**")
-                                .hasAuthority(SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME)
+                                .hasAnyAuthority(
+                                        SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME,
+                                        SystemAdministrationConstants.OWNER_ROLE_NAME,
+                                        SystemAdministrationConstants.MANAGER_ROLE_NAME
+                                )
                                 .requestMatchers("/login/**").authenticated();
                     }).httpBasic(Customizer.withDefaults())
                     .sessionManagement(httpSecuritySessionManagementConfigurer -> {

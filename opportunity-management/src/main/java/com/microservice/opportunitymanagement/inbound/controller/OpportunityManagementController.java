@@ -2,6 +2,7 @@ package com.microservice.opportunitymanagement.inbound.controller;
 
 import com.microservice.opportunitymanagement.business.services.OpportunityManagementService;
 import com.microservice.opportunitymanagement.business.vo.CreateOpportunityVO;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,7 @@ public class OpportunityManagementController {
     @Autowired
     private OpportunityManagementService opportunityManagementService;
 
+    @Operation(summary = "Get Opportunity.", description = "Gets a Opportunity record by sequence id.")
     @GetMapping(
             path = "/{opportunitySequenceId}",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -40,6 +42,7 @@ public class OpportunityManagementController {
         return opportunityManagementService.getOpportunityBySequenceId(opportunitySequenceId);
     }
 
+    @Operation(summary = "Create Opportunity.", description = "Creates a new Opportunity record.")
     @PostMapping(
             path = "/create-opportunity",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -50,6 +53,7 @@ public class OpportunityManagementController {
         return opportunityManagementService.createOpportunity(createOpportunityVO);
     }
 
+    @Operation(summary = "Delete Opportunity.", description = "Deletes a Opportunity record by sequence id.")
     @DeleteMapping(
             path = "/delete-opportunity/{opportunitySequenceId}",
             consumes = MediaType.APPLICATION_JSON_VALUE

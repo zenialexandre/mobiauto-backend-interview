@@ -39,7 +39,12 @@ public class ServiceEditingOpportunitiesSecurityConfiguration {
             httpSecurity.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                         authorizationManagerRequestMatcherRegistry
                                 .requestMatchers("/api/v1/service-editing-opportunities/**")
-                                .hasAuthority(SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME)
+                                .hasAnyAuthority(
+                                        SystemAdministrationConstants.ADMINISTRATOR_ROLE_NAME,
+                                        SystemAdministrationConstants.OWNER_ROLE_NAME,
+                                        SystemAdministrationConstants.MANAGER_ROLE_NAME,
+                                        SystemAdministrationConstants.ASSISTANT_ROLE_NAME
+                                )
                                 .requestMatchers("/login/**").authenticated();
                     }).httpBasic(Customizer.withDefaults())
                     .sessionManagement(httpSecuritySessionManagementConfigurer -> {

@@ -2,6 +2,7 @@ package com.microservice.storemanagement.inbound.controller;
 
 import com.microservice.storemanagement.business.services.StoreManagementService;
 import com.microservice.storemanagement.business.vo.StoreVO;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -32,6 +33,7 @@ public class StoreManagementController {
     @Autowired
     private StoreManagementService storeManagementService;
 
+    @Operation(summary = "Get Store.", description = "Gets a Store record by sequence id.")
     @GetMapping(
             path = "/{storeSequenceId}",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -41,6 +43,7 @@ public class StoreManagementController {
         return storeManagementService.getStoreBySequenceId(storeSequenceId);
     }
 
+    @Operation(summary = "Create Store.", description = "Creates a new Store record.")
     @PostMapping(
             path = "/create-store",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -51,6 +54,7 @@ public class StoreManagementController {
         return storeManagementService.createStore(storeVO);
     }
 
+    @Operation(summary = "Delete Store.", description = "Deletes a Store record by sequence id.")
     @DeleteMapping(
             path = "/delete-store/{storeSequenceId}",
             consumes = MediaType.APPLICATION_JSON_VALUE
@@ -59,14 +63,16 @@ public class StoreManagementController {
         return storeManagementService.deleteStore(storeSequenceId);
     }
 
+    @Operation(summary = "Add User to Store.", description = "Adds a User to the Store record.")
     @PutMapping(
             path = "/add-user/{storeSequenceId}/{userSequenceId}"
     )
     public ResponseEntity<?> addUserToStore(final @PathVariable("storeSequenceId") Integer storeSequenceId,
-                                                   final @PathVariable("userSequenceId") Integer userSequenceId) {
+                                            final @PathVariable("userSequenceId") Integer userSequenceId) {
         return storeManagementService.addUserToStore(storeSequenceId, userSequenceId);
     }
 
+    @Operation(summary = "Add Opportunity to Store.", description = "Adds a Opportunity to the Store record.")
     @PutMapping(
             path = "/add-opportunity/{storeSequenceId}/{opportunitySequenceId}"
     )
