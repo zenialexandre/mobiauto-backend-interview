@@ -16,7 +16,7 @@ Carry out full service for each opportunity registered in the system, by the app
 The application makes usage of a containerized environment, using PostgreSQL as the database and pgAdmin4 for its proper administration. <br>
 If you want to run the project locally on Windows 10/11, we recommend installing <strong>Docker Desktop</strong>. <br> <br>
 
-Libraries and frameworks used: SpringBoot, Guava, Lombok, Hibernate and JUnit. <br>
+Libraries and frameworks used: Springframework, Springdoc, Guava, Lombok, Hibernate and JUnit. <br>
 Build automation tool: Gradle with Groovy plugin. <br>
 
 ### Microservices
