@@ -147,7 +147,6 @@ public class ServiceEditingOpportunitiesService {
     @Scheduled(
             fixedRate = 30,
             timeUnit = TimeUnit.SECONDS
-
     )
     public OpportunityService distributeOpportunitiesBetweenAssistants() {
         populateOpportunitiesToBeAttendedQueue();
